@@ -121,6 +121,7 @@
       if (!data.sample_data || !Array.isArray(data.products)) throw new Error("Unexpected catalog response.");
       state.products = data.products;
       populateProducts();
+      window.dispatchEvent(new Event("ufs:catalog-loaded"));
     } catch (error) {
       showError(error.message || "Could not load the sample catalog. Please reload.");
       submitButton.disabled = true;
