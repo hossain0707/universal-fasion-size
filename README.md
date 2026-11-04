@@ -10,7 +10,7 @@
 
 A real-photo, AI-assisted fitting studio with a privacy-first measurement workflow, an explainable Python sizing engine, and reusable encrypted customer measurements.
 
-[**Live Website**](https://universal-fasion-size.vercel.app/) · [**API Documentation**](https://universal-fasion-size.vercel.app/api/docs) · [**How It Works**](#how-it-works) · [**Architecture**](#system-architecture) · [**Run Locally**](#local-development)
+[**Live Website**](https://universal-fasion-size.vercel.app/) · [**API Documentation**](https://universal-fasion-size.vercel.app/api/docs) · [**Interactive Demo**](#interactive-demo) · [**How It Works**](#how-it-works) · [**Architecture**](#system-architecture) · [**Run Locally**](#local-development)
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Pydantic-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -30,6 +30,64 @@ Fashion sizing is inconsistent: the same customer can wear different labelled si
 The live site uses **real editorial fashion photography**, not cartoons. It offers two complementary input paths: customer-supplied measurements (including natural-language values with explicit units) and an **experimental** guided front-and-side photo assessment. A validated Python API compares reviewed body dimensions to a garment size chart and returns an explainable size recommendation.
 
 **Product honesty:** The platform is a functional public application, but it is **not yet a scientifically validated photo body scanner or a fully integrated merchant sizing service**. Photo-derived circumferences are rough, the shipped garment catalog is fictional demonstration data, and customer profiles currently persist **only in encrypted storage on the same device**.
+
+## Interactive Demo
+
+<p align="center">
+  <a href="https://universal-fasion-size.vercel.app/#live-demo">
+    <img src="docs/demo-walkthrough.svg" alt="Animated four-step walkthrough: photo guidance, editable sample measurements, reusable local vault preview, and live Python fitting result" width="100%" />
+  </a>
+</p>
+
+### Try the live, interactive sample journey
+
+<div align="center">
+
+**[OPEN THE LIVE DEMO — THREE MODEL SCENARIOS](https://universal-fasion-size.vercel.app/#live-demo)**
+
+Select an example shopper, change the measurements, advance through the four animated stages, and see a **real response from the Python /api/recommend endpoint**. Use Back/Next, autoplay or step tabs, then transfer the current sample into the full fitting studio.
+
+</div>
+
+<table>
+<thead><tr><th align="center">Sample A · Everyday Essentials</th><th align="center">Sample B · Everyday Denim</th><th align="center">Sample C · Day Dress</th></tr></thead>
+<tbody><tr>
+<td align="center"><a href="https://universal-fasion-size.vercel.app/#live-demo"><img src="https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?auto=format&amp;fit=crop&amp;w=370&amp;h=465&amp;q=80" alt="Real editorial fashion photograph representing the sample tops scenario, not an actual measured customer" width="270"/></a></td>
+<td align="center"><a href="https://universal-fasion-size.vercel.app/#live-demo"><img src="https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&amp;fit=crop&amp;w=370&amp;h=465&amp;q=80" alt="Real editorial fashion photograph representing the sample denim scenario, not a measured customer" width="270"/></a></td>
+<td align="center"><a href="https://universal-fasion-size.vercel.app/#live-demo"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&amp;fit=crop&amp;w=370&amp;h=465&amp;q=80" alt="Real fashion photo representing the sample day dress scenario, not a measured customer" width="270"/></a></td>
+</tr><tr><td align="center">Tops · Foundation Tee</td><td align="center">Bottoms · Essential Denim</td><td align="center">Dresses · Everyday Dress</td></tr></tbody>
+</table>
+
+**Photo attribution and truth-in-demo:** Images are third-party Unsplash editorial visuals used only as examples. The fictional measurements below **do not belong to the pictured people** and were **not calculated from those photos**. No stock image is presented as a verified live body scan. In the separate real Photo Fitting flow, the customer uploads their own front and side photos and sees the *actual* MediaPipe pose landmarks on their local previews.
+
+### Exact sample data
+
+| Field | Sample A · Tee | Sample B · Denim | Sample C · Dress |
+| --- | ---: | ---: | ---: |
+| Height | 175 cm | 183 cm | 168 cm |
+| Chest | 96 cm | 106 cm | 87 cm |
+| Waist | 81 cm | 90 cm | 71 cm |
+| Hips | 100 cm | 110 cm | 94 cm |
+| Inseam | 78 cm | 81 cm | 74 cm |
+| Intended garment | Foundation Tee | Essential Denim | Everyday Dress |
+| Example chart | Fictional Demo Atelier | Fictional Demo Atelier | Fictional Demo Atelier |
+| Reference baseline recommendation | **M** | **L** | **S** |
+
+The example size baselines above are checked by automated Python API tests. These are **heuristic recommendations based on fictional garment charts**, not labels inferred from the photographs. Editing the example measurements changes the request; the website displays the **actual live API response**, not a hardcoded baseline.
+
+### See a complete example request
+
+~~~bash
+curl -sS https://universal-fasion-size.vercel.app/api/recommend \
+  -H "Content-Type: application/json" \
+  -d '{"category":"tops","product_id":"foundation-tee","fit":"regular","measurements":{"height_cm":175,"chest_cm":96,"waist_cm":81,"hip_cm":100,"inseam_cm":78}}'
+~~~
+
+This calls the same production endpoint used by the interactive sample and full fitting studio. Sample A's baseline returns size **M**, with a heuristic compatibility score, alternative sizes and explanations.
+
+**[Full walkthrough, image-model details, safeguards and test cases](docs/DEMO_GUIDE.md)** · **[Try real on-device photo capture](https://universal-fasion-size.vercel.app/#photo-studio)**
+
+---
 
 ## Current Experience
 
@@ -145,16 +203,21 @@ universal-fasion-size/
 │   └── assets/
 │       ├── style.css                   # Responsive visual design
 │       ├── app.js                      # Product catalog and fitting UI
+│       ├── demo.js                     # Three sample journeys and actual API computation
+│       ├── demo.css                    # Responsive animated demo presentation
 │       ├── photo-fit.js                # On-device silhouette analysis and prompts
 │       ├── profile-vault.js            # Browser-local encrypted measurement vault
 │       └── logo.svg
 ├── tests/
 │   ├── test_api.py
-│   └── test_photo_fit.py
+│   ├── test_photo_fit.py
+│   └── test_demo_profiles.py
 ├── docs/
 │   ├── banner.svg                      # Animated, non-cartoon brand graphic
 │   ├── animated-workflow.svg           # Animated customer journey
 │   ├── architecture.svg                # Data-flow and privacy architecture
+│   ├── demo-walkthrough.svg             # Animated customer example journey
+│   ├── DEMO_GUIDE.md
 │   ├── PHOTO_MEASUREMENT.md
 │   └── DEPLOYMENT.md
 ├── .github/
@@ -326,6 +389,7 @@ Verification performed on November 4, 2026:
 | 2. Real-photo interface | Responsive editorial photography and guided capture | **Implemented** |
 | 3. Experimental photo estimation | Browser-local pose/segmentation and Python geometry endpoint | **Implemented; accuracy not independently validated** |
 | 4. Reusable local profile | Encrypted same-device profile and backup | **Implemented** |
+| 4a. Interactive product demonstration | Three editable example scenarios; four-step animated walkthrough and live Python API | **Implemented** |
 | 5. Real-world accuracy study | Consent-based benchmark with tape measurements, camera calibration and multiple body types | **Pending** |
 | 6. Persistent accounts | Separate managed Auth + Postgres, row-level authorization, recovery and deletion | **Pending infrastructure** |
 | 7. Merchant integrations | Verified brand charts, versioned imports, retailer workflows | **Pending** |
@@ -333,6 +397,7 @@ Verification performed on November 4, 2026:
 
 ## Project Documentation
 
+- **[Interactive Demo Guide](docs/DEMO_GUIDE.md)** — three realistic photo-supported sample journeys, editable values, real API, model boundaries and QA.
 - **[Photo Measurement Engineering Notes](docs/PHOTO_MEASUREMENT.md)** — algorithms, consent, quality rules, privacy and accuracy limitations.
 - **[Deployment Guide](docs/DEPLOYMENT.md)** — how the current Vercel release is deployed and how to enable Git integration.
 - **[Project Context](PROJECT_CONTEXT.md)** — implementation decisions and known boundaries.
