@@ -42,3 +42,11 @@ Actual retailer charts, validated fit accuracy, rate limits, robust streaming pa
 ## Observed verification — 2026-11-04
 
 GitHub Actions Python API CI run [#1](https://github.com/hossain0707/universal-fasion-size/actions/runs/41772477606) completed successfully, including Python syntax compilation and pytest. A public browser journey exercised the real POST /api/recommend endpoint twice: Foundation Tee returned recommended size M, score 93.8/100; Essential Denim returned size M, score 95.4/100; both showed 100% measurement coverage, explanations and alternatives. No JavaScript/API error was observed. These results demonstrate execution, not scientific fit accuracy.
+
+## Latest functionality verified
+
+The November 4, 2026 update includes the real photographic website, front/side guided photo input, consent-gated browser-local MediaPipe segmentation, a Python photo-geometry endpoint, labelled measurement prompts, and an encrypted same-device measurement vault. Public browser smoke tests confirmed photo rendering, measurement input, size ranking and profile create/lock/unlock/restoration.
+
+The photo model's measurement accuracy has **not** been validated with real ground-truth photo pairs and tape measurements. All real customer measurements should be reviewed.
+
+Photo measurement methodology, data privacy, external model downloads and production gaps are documented in [Photo Measurement Engineering Notes](PHOTO_MEASUREMENT.md). Cloud user accounts and automated cross-device persistence require a separate, securely provisioned backend.
