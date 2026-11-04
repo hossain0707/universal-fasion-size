@@ -6,7 +6,7 @@
 
 **One body. Every brand. Your fit.**
 
-*A privacy-first, explainable fashion sizing platform powered by Python and FastAPI.*
+*A realistic, photo-guided fitting platform with on-device computer vision, an encrypted reusable profile and a Python FastAPI sizing engine.*
 
 [**Launch the Live Fitting Studio**](https://universal-fasion-size.vercel.app/) · [**Explore the API**](https://universal-fasion-size.vercel.app/api/docs) · [**Architecture**](#architecture) · [**Quick Start**](#quick-start)
 
@@ -24,7 +24,7 @@
 
 Clothing labels such as XS, S, M and L are not standardized across brands. Universal Fashion Size helps people make informed clothing choices by comparing **actual body measurements** with an explicitly identified garment size chart.
 
-The product includes a functional interactive storefront, a Python recommendation engine and OpenAPI integration for user-supplied clothing charts. Its initial sample catalog is **fictional and illustrative**, not verified retailer inventory. This distinction matters: the code performs genuine calculations, but commercial fit accuracy has not been independently validated.
+The product includes a real-fashion-photo interactive storefront, a guided two-view silhouette-estimation workflow, an encrypted reusable local profile, a labelled measurement prompt parser, a Python recommendation engine and an OpenAPI interface for user-supplied garment charts. Its initial sample catalog is **fictional and illustrative**, not verified retailer inventory. This distinction matters: the code performs genuine calculations, but commercial fit accuracy has not been independently validated.
 
 ## Animated Product Workflow
 
@@ -32,7 +32,12 @@ The product includes a functional interactive storefront, a Python recommendatio
 
 | Capability | Status | Explanation |
 | --- | --- | --- |
-| Interactive responsive fitting studio | Implemented | Desktop, tablet and mobile; reduced-motion support |
+| Real-fashion photography and responsive website | Implemented | Editorial Unsplash imagery with photographer credit; mobile-ready |
+| Front and side photo processing | Implemented, experimental | Real browser-side MediaPipe pose and person segmentation, consent required |
+| Height-scaled photo circumference estimates | Implemented, experimental | Python geometry and broad, non-validated uncertainty ranges |
+| User measurement prompt | Implemented | Extracts explicitly labelled centimetre/inch values without guessing |
+| Reusable profile on the same device | Implemented | AES-GCM encrypted local storage with passphrase, unlock, save, export, import, delete |
+| Cloud account and cross-device synchronization | Not integrated | Requires a dedicated secure authentication/database project |
 | Centimetre and inch measurements | Implemented | Conversion in the browser |
 | Tops, bottoms and dresses | Implemented | Different body-dimension weights |
 | Slim, regular and relaxed preferences | Implemented | Explicit heuristic ease adjustments |
@@ -42,8 +47,8 @@ The product includes a functional interactive storefront, a Python recommendatio
 | Six sample garments | Implemented | Fictional Demo Atelier, clearly identified |
 | Interactive OpenAPI documentation | Implemented | Swagger UI |
 | Real retailer integrations | Not yet integrated | Actual charts require verified agreements and ingestion |
-| Accurate photo-only body scanning | Not supported | Requires calibrated, validated measurement capture |
-| Saved accounts and payments | Not part of current release | Deliberately stateless |
+| Validated exact photo-based body measurements | Not supported | Current geometric estimates are approximate and not scientifically calibrated |
+| Cloud customer accounts and payments | Not part of this release | Local encrypted profiles exist; there is no cloud identity |
 | Real-world accuracy benchmark | Not established | Requires a measured fitting study |
 
 ## Experience
@@ -56,7 +61,7 @@ The customer enters a few body measurements, selects the garment category and pr
 4. A plain-English explanation of the measurements and size-chart ranges.
 5. Input coverage and explicit chart provenance.
 
-The animated garment visualization lives in the **[real public website](https://universal-fasion-size.vercel.app/)**. A GitHub README cannot execute the interactive application, so the live site is the authoritative demonstration.
+The real-fashion-photo website and guided photo capture live in the **[public fitting studio](https://universal-fasion-size.vercel.app/)**. A GitHub README cannot execute the interactive application, so the live site is the authoritative demonstration.
 
 ## Architecture
 
@@ -64,7 +69,10 @@ The animated garment visualization lives in the **[real public website](https://
 
 | Layer | Technology | Responsibilities |
 | --- | --- | --- |
-| Frontend | HTML, CSS, vanilla JavaScript | Accessible input, animation, unit conversion, results |
+| Frontend | HTML, CSS, JavaScript | Real photography, accessible form, capture guidance and result visualization |
+| Photo vision | Browser MediaPipe Pose | On-device landmarks/segmentation, no user photo upload to API |
+| Local profile | WebCrypto, AES-GCM, PBKDF2 | Encrypted device storage with customer-controlled export/delete |
+| Photo estimates | Typed Python API | View-quality checks and low-confidence silhouette geometry |
 | API | Python 3.12, FastAPI, Pydantic v2 | Validation, HTTP routes, errors, documentation and headers |
 | Engine | Typed Python | Weighted measurement matching, ranking, explanations |
 | Catalog | In-process sample data or request-supplied charts | Provenance without misleading retailer attribution |
@@ -72,18 +80,19 @@ The animated garment visualization lives in the **[real public website](https://
 | Tests | pytest and GitHub Actions | Schema, security headers, API behavior, negative cases |
 | Local runtime | Uvicorn and Docker | Reproducible development environment |
 
-The sizing engine uses measured body dimensions rather than trying to derive exact centimetres from an uncalibrated photo. It does not save body profiles or accept image uploads.
+The fitting studio uses user-provided or explicitly reviewed measurements. An optional experimental front/side photo workflow produces **rough** height-scaled estimates, not exact circumferences. Source photos never reach the Python API, and the optional encrypted browser-local profile is separate from the stateless backend.
 
 ## Repository
 
 ~~~text
 universal-fasion-size/
+├── photo_fit.py                     # Experimental photo-derived geometry API
 ├── app.py
 ├── public/
 │   ├── index.html
-│   └── assets/{app.js,style.css,logo.svg}
-├── tests/test_api.py
-├── docs/{banner.svg,animated-workflow.svg,architecture.svg,DEPLOYMENT.md}
+│   └── assets/{app.js,style.css,logo.svg,photo-fit.js,profile-vault.js}
+├── tests/{test_api.py,test_photo_fit.py}
+├── docs/{banner.svg,animated-workflow.svg,architecture.svg,DEPLOYMENT.md,PHOTO_MEASUREMENT.md}
 ├── memory/PROJECT_MEMORY_2026-11-04.md
 ├── .github/
 │   ├── workflows/ci.yml
@@ -134,6 +143,7 @@ docker run --rm -p 8000:8000 universal-fashion-size
 | Method | Path | Purpose |
 | --- | --- | --- |
 | GET | /api/health | Health check |
+| POST | /api/photo/assess | Two-view derived silhouette analysis (no photo pixels sent) |
 | GET | /api/catalog | Six illustrative garments |
 | GET | /api/catalog/{product_id} | Individual sample size chart |
 | POST | /api/recommend | Recommendation, explanation and alternatives |
@@ -223,3 +233,13 @@ This public repository does **not** grant an open-source license. Use, modificat
 ---
 
 <p align="center"><strong>Universal Fashion Size</strong><br/>Python-first · Human-centered · Explainable by design<br/><a href="https://universal-fasion-size.vercel.app/">Live Website</a> · <a href="https://universal-fasion-size.vercel.app/api/docs">API Docs</a> · <a href="https://github.com/hossain0707/universal-fasion-size/issues">Issues</a></p>
+
+## Real Photos, Measurement Prompts and Reusable Profiles
+
+The live site now uses real fashion editorial photography instead of a cartoon-like mannequin. The new photo workflow accepts a real **front** and **90-degree side** full-body photograph plus **measured height**. With explicit opt-in, a browser-local MediaPipe model detects the pose and person silhouette. The Python API only receives derived geometry for estimated chest, waist and hip circumference ranges, with deliberately low-confidence warnings. This is not precise 3D scanning, photogrammetry or measured tailoring accuracy. **Users should verify estimates with a measuring tape before relying on them.**
+
+Alternatively, users may write measurements using explicit labels and units, such as `height 175cm, chest 96cm, waist 81cm, hips 100cm`. The application applies precisely the labelled information without fabricating missing values.
+
+Users can save reviewed values to an AES-GCM-encrypted profile **in the same browser on the same device**, unlock next visit using their passphrase, update values, delete, or export/import an encrypted backup. Images are never stored in that profile. It does **not** automatically sync between devices or provide an online customer account. See [Photo Measurement Technical Notes](docs/PHOTO_MEASUREMENT.md) for privacy, algorithm limitations and calibration constraints.
+
+The public website and Python API, prompt input, fitting result and encrypted profile create/lock/unlock flows passed a live browser test with synthetic measurements. The photo-vision flow has API unit tests but **has not been validated end-to-end with ground-truth user photo pairs**, so real-world accuracy remains unproven. Real retailer size charts and secure cloud profile synchronization remain future infrastructure integrations.
