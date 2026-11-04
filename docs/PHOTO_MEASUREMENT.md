@@ -27,3 +27,10 @@
 The current deployment supports a **local encrypted profile**, not a cloud identity system. LocalStorage contains an AES-GCM encrypted JSON blob, with key derived from a customer passphrase using PBKDF2-SHA256 (310,000 iterations). Image bytes are not stored. Users can unlock, change and delete the local profile, or export and import an encrypted backup for use on another device. The browser is responsible for protecting the device from malware and XSS. This is not authenticated, cloud-synced account storage, and forgetting the passphrase means the data cannot be recovered.
 
 Cross-device automatic login and profile sync require a properly provisioned and isolated auth/database service (e.g. Supabase), RLS, secure backup and deletion policies. The existing Supabase project belongs to **PhishGuard**; it must never be reused for this application. This release intentionally avoids implying cloud accounts are available.
+
+
+## Visual feedback on actual captured photos
+
+After both front/side images successfully pass on-device MediaPipe detection and the Python geometric validations, the browser draws **the returned detected pose landmarks** as green points and connecting lines, and three approximate torso-width reference lines (chest, waist and hips) in yellow, directly over its local preview images. This gives visitors a genuine view of what the on-device model recognized. It does not mean the original images are uploaded or that projected lines represent calibrated tape-measure values. See the [interactive demonstration guide](DEMO_GUIDE.md).
+
+The separate #live-demo sample cases use *fictional measurements and unrelated stock fashion photographs*, not this photo segmentation process. Demo mode runs a real fit-ranking API request but does not invoke the photo ML model. The distinction is intentional.
