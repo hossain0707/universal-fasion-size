@@ -10,7 +10,9 @@
   <title>Universal Fashion Size | A better fit, by design</title>
   <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/demo.css">
   <script defer src="/assets/app.js"></script>
+  <script defer src="/assets/demo.js"></script>
   <script type="module" src="/assets/photo-fit.js"></script>
   <script type="module" src="/assets/profile-vault.js"></script>
 </head>
@@ -20,7 +22,7 @@
   <header class="header">
     <a class="wordmark" href="#home" aria-label="Universal Fashion Size, home"><span class="mark">U<span>.</span></span><span>UNIVERSAL<span class="wordmark-light"> / FIT</span></span></a>
     <nav class="nav" aria-label="Main navigation">
-      <a href="#photo-studio">Photo fitting</a><a href="#fit-studio">Fit studio</a><a href="#how-it-works">The process</a><a href="#profile-vault">Your profile</a><a href="/api/docs" target="_blank" rel="noopener">API</a>
+      <a href="#photo-studio">Photo fitting</a><a href="#live-demo">Live demo</a><a href="#fit-studio">Fit studio</a><a href="#how-it-works">The process</a><a href="#profile-vault">Your profile</a><a href="/api/docs" target="_blank" rel="noopener">API</a>
     </nav>
     <a class="nav-cta" href="#photo-studio">Try photo fitting <span aria-hidden="true">↗</span></a>
   </header>
@@ -33,7 +35,7 @@
         <p class="hero-lead">A better fit starts with a real measurement. Use a measuring tape or try a guided front-and-side photo estimate, then keep your confirmed profile privately for your next visit.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#photo-studio">Try photo fitting <span>↗</span></a>
-          <a class="button button-quiet" href="#how-it-works">See how it works <span>↓</span></a>
+          <a class="button button-quiet" href="#live-demo">Watch the demo <span>↓</span></a>
         </div>
         <div class="hero-metrics">
           <div><strong>02</strong><span>Guided photo views</span></div>
@@ -53,6 +55,119 @@
       </div>
     </section>
     <div class="ticker" aria-hidden="true"><div>YOUR MEASUREMENTS <span>✳</span> YOUR PERSONAL FIT <span>✳</span> YOUR STYLE <span>✳</span> A BETTER WAY TO SIZE <span>✳</span> YOUR MEASUREMENTS <span>✳</span> YOUR PERSONAL FIT <span>✳</span> YOUR STYLE <span>✳</span> A BETTER WAY TO SIZE <span>✳</span></div></div>
+
+
+    <section class="walkthrough-section" id="live-demo" aria-labelledby="walkthrough-title">
+      <div class="wrap">
+        <div class="walkthrough-lead">
+          <div>
+            <span class="walkthrough-eyebrow">INTERACTIVE PRODUCT WALKTHROUGH · THREE EXAMPLES</span>
+            <h2 id="walkthrough-title">See exactly how it works.<br><em>From a real fit journey to a size.</em></h2>
+            <p>Choose a sample look, review its clearly fictional measurements, and follow the complete fitting journey. At the final step, the website calls the <strong>real Python recommendation API</strong> and displays its response. No precomputed size results or fake scanning.</p>
+          </div>
+          <aside class="walkthrough-intro-note">
+            <strong>Actual engine · Honest example data</strong>
+            <p>Editorial model photos are for visual guidance only. The example numbers were created for the demonstration, <strong>not measured from those images</strong>. To analyze your own images, use the <a href="#photo-studio" style="text-decoration:underline">Photo Fitting</a> section instead.</p>
+          </aside>
+        </div>
+
+        <div id="walkthrough-cases" class="walkthrough-case-list" role="group" aria-label="Select a demonstration shopper">
+          <button class="walkthrough-case is-active" type="button" data-case="everyday" aria-pressed="true"><span><strong>Everyday essentials</strong><small>Sample A · Foundation Tee · Tops</small></span><b>01</b></button>
+          <button class="walkthrough-case" type="button" data-case="denim" aria-pressed="false"><span><strong>Everyday denim</strong><small>Sample B · Essential Denim · Bottoms</small></span><b>02</b></button>
+          <button class="walkthrough-case" type="button" data-case="dress" aria-pressed="false"><span><strong>Day dress</strong><small>Sample C · Everyday Dress · Dresses</small></span><b>03</b></button>
+        </div>
+
+        <div class="walkthrough-shell">
+          <div class="walkthrough-fashion" aria-label="Editorial fashion illustration for the selected sample">
+            <img id="walkthrough-photo" src="https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?auto=format&amp;fit=crop&amp;w=900&amp;h=1200&amp;q=85" alt="Real fashion editorial photograph; not used to generate the synthetic sample measurements" loading="lazy">
+            <div class="walkthrough-photo-badge"><span>REAL FASHION PHOTOGRAPHY</span><span id="walkthrough-portrait-counter">CASE 01 / 03</span></div>
+            <div class="walkthrough-fashion-foot">
+              <span class="fashion-label">A VISUAL EXAMPLE, NOT A BODY SCAN</span>
+              <h3 id="walkthrough-current-outfit">Everyday cotton tee</h3>
+              <p>These fashion photographs do not establish the model's measurements. All examples are independent, fictional test scenarios.</p>
+              <span class="walkthrough-microchip">Photography is illustrative · Fitting computation is real</span>
+            </div>
+          </div>
+
+          <div class="walkthrough-interface">
+            <div class="walkthrough-interface-head"><strong>FITTING JOURNEY</strong><span id="walkthrough-stage-count">01 / 04</span></div>
+            <div class="walkthrough-progress" aria-hidden="true"><span id="walkthrough-progress-bar"></span></div>
+
+            <div id="walkthrough-steps" class="walkthrough-steps" role="tablist" aria-label="Demonstration workflow stages">
+              <button type="button" class="walkthrough-step is-selected" id="walkthrough-tab-0" data-demo-step="0" role="tab" aria-controls="walkthrough-panel-0" aria-selected="true" tabindex="0"><b>01</b><span>Photo guidance</span></button>
+              <button type="button" class="walkthrough-step" id="walkthrough-tab-1" data-demo-step="1" role="tab" aria-controls="walkthrough-panel-1" aria-selected="false" tabindex="-1"><b>02</b><span>Measurements</span></button>
+              <button type="button" class="walkthrough-step" id="walkthrough-tab-2" data-demo-step="2" role="tab" aria-controls="walkthrough-panel-2" aria-selected="false" tabindex="-1"><b>03</b><span>Save once</span></button>
+              <button type="button" class="walkthrough-step" id="walkthrough-tab-3" data-demo-step="3" role="tab" aria-controls="walkthrough-panel-3" aria-selected="false" tabindex="-1"><b>04</b><span>Find your size</span></button>
+            </div>
+
+            <div id="walkthrough-panels" class="walkthrough-panels">
+              <section class="walkthrough-panel" id="walkthrough-panel-0" role="tabpanel" aria-labelledby="walkthrough-tab-0" data-demo-panel="0">
+                <span class="walkthrough-panel-kicker">Step 01 · Photo capture or tape</span>
+                <h3>Two photographs, when you choose.</h3>
+                <p>Actual customers take a clear, full-body front photograph and another from their right or left side, with their measured height. A real MediaPipe pose model runs in the browser only after explicit consent. The sample here uses <strong>example measurements rather than scanning editorial photography</strong>.</p>
+                <div class="walkthrough-takeaways">
+                  <div class="walkthrough-takeaway"><strong>Front view</strong><small>Camera straight, head and feet visible, fitted clothes, good lighting.</small></div>
+                  <div class="walkthrough-takeaway"><strong>Side view</strong><small>Same person turns 90°, camera level, entire body visible.</small></div>
+                </div>
+                <a class="walkthrough-inline-link" href="#photo-studio">Go to real photo analysis →</a>
+                <div class="walkthrough-data-note">The images on the left are representative fashion photography; there is no claim that these people have the fictional example body sizes.</div>
+              </section>
+
+              <section class="walkthrough-panel" id="walkthrough-panel-1" role="tabpanel" aria-labelledby="walkthrough-tab-1" data-demo-panel="1" hidden>
+                <span class="walkthrough-panel-kicker">Step 02 · Review and correct</span>
+                <h3>Edit the sample measurements.</h3>
+                <p>These are synthetic test values, supplied independently of the photograph. Change any number to see how the <strong>real backend</strong> changes its recommended size on the final step. Photo estimates in the actual app always require review.</p>
+                <div class="walkthrough-input-grid">
+                  <label>Height (cm)<input data-demo-input="height_cm" type="number" min="120" max="220" step="0.1" inputmode="decimal" value="175"></label>
+                  <label>Chest (cm)<input data-demo-input="chest_cm" type="number" min="45" max="200" step="0.1" inputmode="decimal" value="96"></label>
+                  <label>Waist (cm)<input data-demo-input="waist_cm" type="number" min="40" max="200" step="0.1" inputmode="decimal" value="81"></label>
+                  <label>Hips (cm)<input data-demo-input="hip_cm" type="number" min="45" max="220" step="0.1" inputmode="decimal" value="100"></label>
+                  <label>Inseam (cm)<input data-demo-input="inseam_cm" type="number" min="35" max="110" step="0.1" inputmode="decimal" value="78"></label>
+                </div>
+                <div class="walkthrough-data-note">A single ordinary photo is not a scientific source of exact centimetre measurements. Customers should verify values using a tape.</div>
+              </section>
+
+              <section class="walkthrough-panel" id="walkthrough-panel-2" role="tabpanel" aria-labelledby="walkthrough-tab-2" data-demo-panel="2" hidden>
+                <span class="walkthrough-panel-kicker">Step 03 · Optional, customer-controlled saving</span>
+                <h3>Keep measurements for your next visit.</h3>
+                <p>This is a <strong>preview only</strong>: the interactive walkthrough does not save a sample profile or create a customer account. In the real profile vault, visitors can encrypt and save their reviewed numbers on this device, then unlock, update or delete them later.</p>
+                <div class="walkthrough-profile-preview" aria-label="Example profile preview, not saved to a database">
+                  <div class="walkthrough-profile-preview-top"><strong id="walkthrough-profile-name">Example 01 · Everyday essentials</strong><span>DEMO PREVIEW · NOT SAVED</span></div>
+                  <div id="walkthrough-measure-list" class="walkthrough-measure-list"></div>
+                </div>
+                <a class="walkthrough-inline-link" href="#profile-vault">Try the actual encrypted local vault →</a>
+              </section>
+
+              <section class="walkthrough-panel" id="walkthrough-panel-3" role="tabpanel" aria-labelledby="walkthrough-tab-3" data-demo-panel="3" hidden>
+                <span class="walkthrough-panel-kicker">Step 04 · Live FastAPI result</span>
+                <h3>What size does the engine choose?</h3>
+                <p>The sample inputs are sent to <strong>POST /api/recommend</strong> with the fictional <strong id="walkthrough-product-name">Foundation Tee</strong> chart. The result below is returned by the actual Python service, not typed into this page.</p>
+                <div id="walkthrough-live-loading" class="walkthrough-live-loading" role="status">Run the live API calculation to see the result.</div>
+                <div id="walkthrough-live-result" class="walkthrough-live-result" hidden>
+                  <div class="walkthrough-live-result-top"><div><small>RECOMMENDED SIZE</small><strong id="walkthrough-recommended-size"></strong></div><aside><b id="walkthrough-fit-score"></b><span id="walkthrough-input-coverage"></span></aside></div>
+                  <div class="walkthrough-result-meter"><span id="walkthrough-score-fill"></span></div>
+                  <ul id="walkthrough-result-explanations" class="walkthrough-result-explanations"></ul>
+                  <div class="walkthrough-alternatives"><strong>OTHER SCORED OPTIONS</strong><ul id="walkthrough-result-alternatives"></ul></div>
+                </div>
+                <div class="walkthrough-data-note">Fit score = heuristic chart compatibility, not accuracy of photo measurements or the probability a garment will fit.</div>
+                <button type="button" class="walkthrough-action" id="walkthrough-retry">Retry live calculation</button>
+              </section>
+            </div>
+
+            <p id="walkthrough-error" class="walkthrough-alert" role="alert" hidden></p>
+            <div class="walkthrough-actions">
+              <div><button id="walkthrough-back" type="button" class="walkthrough-action" disabled>Back</button><button id="walkthrough-next" type="button" class="walkthrough-action is-primary">Next step</button></div>
+              <div><button id="walkthrough-play" type="button" aria-pressed="false" class="walkthrough-action">Play walkthrough</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="walkthrough-below">
+          <p><strong>What is real?</strong> The model software, live Python API, editable numerical inputs and result are real. Sample shopper measurements and fashion photos are illustrative and unrelated.</p>
+          <a href="#fit-studio" id="walkthrough-to-studio" role="button">Try this sample in the full fitting studio →</a>
+        </div>
+        <div class="walkthrough-disclosure"><strong>Privacy:</strong> Sample mode does not upload photos or save profiles. When you upload your own two photos, the MediaPipe model analyzes them locally. The API handles only derived geometry and sizing inputs.</div>
+      </div>
+    </section>
 
     <section class="photo-studio" id="photo-studio" aria-labelledby="photo-title">
       <div class="wrap">
