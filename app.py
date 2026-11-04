@@ -12,6 +12,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from photo_fit import router as photo_router
 
 ROOT = Path(__file__).resolve().parent
 VERSION = "1.0.0"
@@ -222,6 +223,9 @@ async def headers_and_limits(request: Request, call_next):
     if request.url.path.startswith("/api/") and request.url.path not in ("/api/catalog",):
         response.headers["Cache-Control"] = "no-store"
     return response
+
+
+app.include_router(photo_router)
 
 
 @app.get("/api/health", tags=["system"])
