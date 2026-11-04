@@ -73,6 +73,8 @@ Select an example shopper, change the measurements, advance through the four ani
 | Example chart | Fictional Demo Atelier | Fictional Demo Atelier | Fictional Demo Atelier |
 | Reference baseline recommendation | **M** | **L** | **S** |
 
+**Public browser verification (November 4, 2026):** Sample A returned **M · 93.8/100**, Sample B returned **L · 95.3/100**, and Sample C returned **S**, with server-generated sizing explanations and alternatives. Switching examples, editing numerical fields, navigating steps and playing the walkthrough succeeded without broken images or visible runtime errors. [View the public browser test session](https://agent.tinyfish.ai/runs/b96f3534-1ab2-4e35-baf4-286e76d42b8b). These scores are heuristic fit rankings for fictional charts, **not measured body-scan accuracy**.
+
 The example size baselines above are checked by automated Python API tests. These are **heuristic recommendations based on fictional garment charts**, not labels inferred from the photographs. Editing the example measurements changes the request; the website displays the **actual live API response**, not a hardcoded baseline.
 
 ### See a complete example request
