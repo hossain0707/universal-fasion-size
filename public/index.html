@@ -11,6 +11,8 @@
   <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <script defer src="/assets/app.js"></script>
+  <script type="module" src="/assets/photo-fit.js"></script>
+  <script type="module" src="/assets/profile-vault.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#fit-studio">Skip to fit studio</a>
@@ -18,9 +20,9 @@
   <header class="header">
     <a class="wordmark" href="#home" aria-label="Universal Fashion Size, home"><span class="mark">U<span>.</span></span><span>UNIVERSAL<span class="wordmark-light"> / FIT</span></span></a>
     <nav class="nav" aria-label="Main navigation">
-      <a href="#fit-studio">Fit studio</a><a href="#how-it-works">The process</a><a href="#for-brands">For brands</a><a href="/api/docs" target="_blank" rel="noopener">API</a>
+      <a href="#photo-studio">Photo fitting</a><a href="#fit-studio">Fit studio</a><a href="#how-it-works">The process</a><a href="#profile-vault">Your profile</a><a href="/api/docs" target="_blank" rel="noopener">API</a>
     </nav>
-    <a class="nav-cta" href="#fit-studio">Find your size <span aria-hidden="true">↗</span></a>
+    <a class="nav-cta" href="#photo-studio">Try photo fitting <span aria-hidden="true">↗</span></a>
   </header>
 
   <main>
@@ -28,55 +30,56 @@
       <div class="hero-copy">
         <div class="eyebrow"><span class="live-dot"></span> PRECISION FITTING, MADE SIMPLE</div>
         <h1 id="hero-title">One body.<br><span>Every brand.</span><br><em>Your fit.</em></h1>
-        <p class="hero-lead">Size labels don't tell the whole story. Discover a more considered way to shop, powered by actual measurements and an explainable Python fit engine.</p>
+        <p class="hero-lead">A better fit starts with a real measurement. Use a measuring tape or try a guided front-and-side photo estimate, then keep your confirmed profile privately for your next visit.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#fit-studio">Discover your fit <span>↗</span></a>
+          <a class="button button-primary" href="#photo-studio">Try photo fitting <span>↗</span></a>
           <a class="button button-quiet" href="#how-it-works">See how it works <span>↓</span></a>
         </div>
         <div class="hero-metrics">
-          <div><strong>03</strong><span>Style categories</span></div>
+          <div><strong>02</strong><span>Guided photo views</span></div>
           <i></i>
-          <div><strong>06</strong><span>Sample products</span></div>
+          <div><strong>03</strong><span>Garment categories</span></div>
           <i></i>
-          <div><strong>0</strong><span>Photos required</span></div>
+          <div><strong>0</strong><span>Photos uploaded</span></div>
         </div>
       </div>
-      <div class="hero-art" aria-label="Stylized, animated apparel fit illustration">
-        <div class="radial-halo"></div><div class="orbit orbit-1"></div><div class="orbit orbit-2"></div>
-        <div class="hero-grid" aria-hidden="true"></div>
-        <div class="model-stage" aria-hidden="true">
-          <svg class="fashion-model" viewBox="0 0 390 530" role="img">
-            <defs>
-              <linearGradient id="dressGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a2f1df"/><stop offset=".5" stop-color="#6badef"/><stop offset="1" stop-color="#b38af9"/></linearGradient>
-              <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7c2aa"/><stop offset="1" stop-color="#a86c68"/></linearGradient>
-              <linearGradient id="pantGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#263651"/><stop offset="1" stop-color="#111c36"/></linearGradient>
-              <filter id="clothGlow"><feGaussianBlur stdDeviation="9"/></filter>
-            </defs>
-            <ellipse cx="194" cy="505" rx="83" ry="12" fill="#3c5775" opacity=".45"/>
-            <path d="M168 103 L166 143 L137 158 L126 187 L130 252 L155 265 L164 225 L170 320 L155 487 L185 493 L201 342 L216 493 L246 487 L227 320 L233 224 L242 265 L268 251 L260 188 L248 159 L219 143 L217 103Z" fill="url(#bodyGrad)"/>
-            <ellipse cx="192" cy="74" rx="41" ry="52" fill="url(#bodyGrad)"/>
-            <path d="M151 64 Q149 6 189 7 Q233 5 233 57 Q224 42 215 29 Q186 50 153 51Z" fill="#182033"/>
-            <path d="M171 119 Q184 130 194 127 Q209 131 218 117 L220 146 L248 157 L269 243 L243 255 L231 205 L232 318 L154 318 L156 205 L141 255 L116 244 L140 157 L169 146Z" fill="url(#dressGrad)" stroke="#d2fdf7" stroke-opacity=".45" stroke-width="2"/>
-            <path d="M171 119 L190 154 L217 119 M154 201 Q194 220 232 200 M156 273 Q195 290 230 273" fill="none" stroke="#ebffff" stroke-opacity=".47" stroke-width="2"/>
-            <path d="M156 316 L232 316 L244 488 L213 490 L195 358 L178 490 L150 488Z" fill="url(#pantGrad)" stroke="#7287a8" stroke-width="1"/>
-            <path d="M156 316 L232 316 M195 330 L195 356" stroke="#9ab5d1" opacity=".5" fill="none"/>
-            <path d="M146 169 Q194 151 242 169" fill="none" stroke="#fff" stroke-opacity=".36" stroke-width="2"/>
-            <path d="M142 215 Q193 235 246 215 M158 300 Q194 312 232 300" fill="none" stroke="#a9ffdf" stroke-width="2" stroke-dasharray="5 6"/>
-            <circle cx="142" cy="215" r="5" fill="#a9ffdf"/><circle cx="246" cy="215" r="5" fill="#a9ffdf"/><circle cx="158" cy="300" r="5" fill="#a9ffdf"/><circle cx="232" cy="300" r="5" fill="#a9ffdf"/>
-          </svg>
+      <div class="hero-art real-photo" aria-label="Real fashion editorial portrait, not an illustration">
+        <div class="editorial-photo">
+          <img src="https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="Fashion model in a tailored teal jacket beside a clothing rack in a professional studio" loading="eager" fetchpriority="high">
+          <div class="editorial-caption"><span>REAL PEOPLE · REAL MEASUREMENTS</span><span>AN INDIVIDUAL FIT</span></div>
         </div>
-        <div class="floating-tag tag-top"><span class="tag-label">SIZING ENGINE</span><strong>Precision in every detail</strong><span class="tag-indicator"><span></span> Live calculation</span></div>
-        <div class="floating-tag tag-left"><small>CHEST</small><strong>96.0 <span>cm</span></strong><div class="tiny-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-        <div class="floating-tag tag-right"><small>BETTER FIT</small><strong>Size M</strong><span class="tag-subtitle">Size-chart matching</span></div>
-        <div class="art-bottom-label">A HUMAN-CENTERED APPROACH TO FIT <span>001 / 003</span></div>
+        <div class="editorial-float"><span class="editorial-bullet"></span><div><strong>Made for real bodies</strong><small>Guided photo scan · Private by default</small></div></div>
+        <a class="photo-credit" href="https://unsplash.com/photos/a-woman-in-a-pinstripe-blazer-stands-by-clothing-rack-QA5Z9_oiR-M" target="_blank" rel="noopener">Photography by sammy swae / Unsplash</a>
       </div>
     </section>
     <div class="ticker" aria-hidden="true"><div>YOUR MEASUREMENTS <span>✳</span> YOUR PERSONAL FIT <span>✳</span> YOUR STYLE <span>✳</span> A BETTER WAY TO SIZE <span>✳</span> YOUR MEASUREMENTS <span>✳</span> YOUR PERSONAL FIT <span>✳</span> YOUR STYLE <span>✳</span> A BETTER WAY TO SIZE <span>✳</span></div></div>
 
+    <section class="photo-studio" id="photo-studio" aria-labelledby="photo-title">
+      <div class="wrap">
+        <div class="photo-intro">
+          <div><span class="light-kicker">01 / YOUR BODY, YOUR TERMS</span><h2 id="photo-title">A more personal fit.<br><em>Using your real photos.</em></h2><p>Use a front and a side photograph to try an actual on-device pose and silhouette analysis. The calculator gives <strong>rough estimates, not exact measurements</strong>. For reliable sizing, check and correct values with a tape.</p><div class="photo-intro-actions"><a class="photo-intro-link" href="#fit-studio">I already have measurements ↗</a><a class="photo-intro-link" href="#profile-vault">Open my saved profile ↗</a></div></div>
+          <figure class="photo-editorial"><img src="https://images.unsplash.com/photo-1753162659456-15844e6ffe80?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" alt="Dressmaker carefully measuring a garment in a real tailoring workshop" loading="lazy"><figcaption>Measured thoughtfully. Designed for real life. <a href="https://unsplash.com/photos/a-fashion-designer-works-on-a-dress-form-KlYmGh-F4VU" target="_blank" rel="noopener">Vitaly Gariev / Unsplash</a></figcaption></figure>
+        </div>
+        <div class="photo-main">
+          <div class="guide-header"><div><span class="light-kicker">GUIDED CAPTURE</span><h3>Two views. One considered estimate.</h3></div><span class="privacy-tag">Photos stay in your browser</span></div>
+          <div class="guide-steps"><span><b>01</b> Bright, uncluttered background</span><span><b>02</b> Close-fitting everyday clothing</span><span><b>03</b> Camera level, full body visible</span><span><b>04</b> Stand still, arms away from your torso</span></div>
+          <div class="capture-grid">
+            <div class="capture-card"><div class="capture-head"><strong>Front view</strong><span>01 / 02</span></div><label class="capture-target" for="front-file"><span id="front-empty" class="capture-instruction"><span class="camera-symbol">⌾</span><strong>Choose or take a full-body photo</strong><small>Head to feet · facing the camera</small></span><img id="front-preview" alt="Your uploaded front-view photograph for on-device estimation" hidden></label><input id="front-file" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"><div class="capture-footer"><span id="front-file-name"></span><button type="button" id="front-clear">Remove photo</button></div></div>
+            <div class="capture-card"><div class="capture-head"><strong>Side view</strong><span>02 / 02</span></div><label class="capture-target" for="side-file"><span id="side-empty" class="capture-instruction"><span class="camera-symbol">⌾</span><strong>Choose or take a full-body photo</strong><small>Turn 90° · full profile visible</small></span><img id="side-preview" alt="Your uploaded side-view photograph for on-device estimation" hidden></label><input id="side-file" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"><div class="capture-footer"><span id="side-file-name"></span><button type="button" id="side-clear">Remove photo</button></div></div>
+          </div>
+          <div class="capture-controls"><div class="height-field"><label for="photo-height">Your measured height (cm)</label><input id="photo-height" type="number" inputmode="decimal" min="120" max="220" step="0.1" autocomplete="off"><small>Required to approximately scale the silhouettes. Guessing height increases error.</small></div><div class="photo-check"><label><input id="photo-consent" type="checkbox"> I consent to on-device photo analysis and loading the external MediaPipe model from Google/CDN services. No source photos are uploaded to this app.</label></div><button class="photo-action" id="analyze-photos" type="button">Analyze my two photos <span>↗</span></button><p id="photo-status" role="status" aria-live="polite" class="photo-status">Select two real photos to begin. No analysis runs until you choose it.</p></div>
+          <div id="photo-output" class="photo-output" hidden><div><span class="light-kicker">LOW-CONFIDENCE ESTIMATE · REVIEW REQUIRED</span><h4>Estimated proportions, not exact sizes.</h4><p id="photo-explanation"></p></div><div id="photo-estimates" class="estimate-grid"></div><button id="photo-apply" type="button" class="photo-action">Review these estimates in the fitting studio <span>↗</span></button></div>
+        </div>
+        <div class="photo-prompt"><div><span class="light-kicker">ALTERNATIVE / NO PHOTOS</span><h3>Tell us your measurements.</h3><p>If you know your measurements, type them naturally with units. The parser extracts labelled numbers without guessing anything you didn't tell it.</p><p class="prompt-example">Example: Height 175cm, chest 96cm, waist 81cm, hips 100cm, inseam 78cm.</p></div><div class="prompt-compose"><label for="measurement-prompt">Measurements with units</label><textarea id="measurement-prompt" rows="3" spellcheck="false" aria-label="Describe your measured dimensions with units"></textarea><button type="button" id="apply-prompt" class="photo-outline-action">Use these measurements ↗</button></div></div>
+        <div class="profile-studio" id="profile-vault"><div class="profile-title"><span class="light-kicker">02 / REUSABLE PERSONAL PROFILE</span><h3>Measure once.<br><em>Return and pick up where you left off.</em></h3><p>Save your reviewed measurements in an encrypted profile <strong>on this device</strong>. They will be ready next time you return after you unlock with your passphrase. No account, cloud sync or photo storage is implied.</p><div class="profile-mini">AES-256-GCM encryption · Personal passphrase · Export, import and delete controls</div></div>
+          <div class="profile-form" id="vault-controls"><label for="profile-name">Profile name</label><input id="profile-name" type="text" maxlength="60" autocomplete="nickname"><label for="profile-passphrase">Your passphrase</label><input id="profile-passphrase" type="password" autocomplete="current-password" minlength="12"><small>12+ characters recommended. We cannot recover a forgotten passphrase. Export a backup to move your encrypted profile to another device.</small><label class="vault-check"><input type="checkbox" id="profile-consent"> I want to store my reviewed measurements encrypted on this device.</label><p id="vault-summary">Checking for an encrypted profile…</p><div class="vault-buttons"><button id="vault-create" type="button">Create my profile</button><button id="vault-open" type="button" hidden>Unlock profile</button><button id="vault-save" type="button" hidden>Save changes</button><button id="vault-lock" type="button" hidden>Lock profile</button><button id="vault-export" type="button" hidden>Export encrypted backup</button><label for="vault-import" class="vault-import">Import encrypted backup</label><input type="file" id="vault-import" accept=".json,application/json" hidden><button id="vault-delete" class="vault-delete" type="button" hidden>Delete profile</button></div><p id="vault-status" role="status" aria-live="polite" class="photo-status"></p></div></div>
+      </div>
+    </section>
+
     <section class="studio-section wrap" id="fit-studio" aria-labelledby="studio-title">
       <div class="section-heading">
         <div><span class="section-kicker">01 / YOUR FIT STUDIO</span><h2 id="studio-title">Meet your <em>perfectly<br>informed</em> fit.</h2></div>
-        <p>No guesswork, no mystery scores. Share a few measurements and compare them with transparent size-chart ranges. Your inputs are processed per request and are not saved by the service.</p>
+        <p>No guesswork, no mystery scores. Share a few measurements and compare them with transparent size-chart ranges. You can also load a reviewed encrypted local profile. The Python sizing API processes only the current request and does not save body measurements.</p>
       </div>
       <div class="studio-layout">
         <div class="fit-panel">
@@ -133,9 +136,9 @@
       <div class="wrap">
         <div class="section-heading process-heading"><div><span class="section-kicker">02 / THE METHOD</span><h2>Clarity, not <em>guesswork.</em></h2></div><p>There is no universal clothing size shared by every brand. We compare your measurements against a specific garment's body-size chart and show the limits of that comparison.</p></div>
         <div class="process-grid">
-          <article class="process-card"><span class="process-number">01</span><div class="process-art tape-art"><div class="measure-loop"></div><div class="measure-line"></div><span>95.2 cm</span></div><h3>Measure once</h3><p>Take a few body measurements with a tape. No camera, face scan or photos required.</p></article>
-          <article class="process-card"><span class="process-number">02</span><div class="process-art spectrum-art"><i>XS</i><i>S</i><i class="chosen">M</i><i>L</i><i>XL</i></div><h3>Compare accurately</h3><p>The Python engine ranks chart sizes using weighted differences and your preferred ease.</p></article>
-          <article class="process-card"><span class="process-number">03</span><div class="process-art precision-art"><div class="precision-ring"><span>M</span></div><b>FIT REPORT</b></div><h3>Shop informed</h3><p>See your recommended size, plausible alternatives, data coverage and a clear explanation.</p></article>
+          <article class="process-card"><span class="process-number">01</span><div class="process-art process-photo"><img src="https://images.unsplash.com/photo-1753162659456-15844e6ffe80?auto=format&amp;fit=crop&amp;w=740&amp;q=80" alt="Tailor using an actual measuring tape during garment design" loading="lazy"></div><h3>Measure once</h3><p>Take a few body measurements with a tape. No camera, face scan or photos required.</p></article>
+          <article class="process-card"><span class="process-number">02</span><div class="process-art process-photo"><img src="https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?auto=format&amp;fit=crop&amp;w=740&amp;q=80" alt="Real fashion wardrobe and fitted editorial clothing" loading="lazy"></div><h3>Compare accurately</h3><p>The Python engine ranks chart sizes using weighted differences and your preferred ease.</p></article>
+          <article class="process-card"><span class="process-number">03</span><div class="process-art process-photo"><img src="https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&amp;fit=crop&amp;w=740&amp;q=80" alt="Professional fashion portrait in a tailored black outfit" loading="lazy"></div><h3>Shop informed</h3><p>See your recommended size, plausible alternatives, data coverage and a clear explanation.</p></article>
         </div>
       </div>
     </section>
