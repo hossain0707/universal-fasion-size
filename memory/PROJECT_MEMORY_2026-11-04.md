@@ -17,3 +17,6 @@ First Vercel deployment had HTTP 500 due missing physical public/assets in funct
 
 ## Next actions
 Verify CI and POST/UI happy path; enable Vercel Git link; merchant chart governance; calibrated fit study; rate limits, monitoring, consent/privacy and independent security/accessibility review.
+
+## Verification update — 2026-11-04
+GitHub Actions Python API CI #1 (run 41772477606) completed with conclusion SUCCESS; Python setup, install, compilation and tests all successful. External public browser smoke test completed Foundation Tee (M, 93.8/100) and Essential Denim (M, 95.4/100), and their explanations, coverage and alternatives; no JavaScript/API errors observed. Real merchant fit accuracy remains untested.

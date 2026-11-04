@@ -195,7 +195,7 @@ Commercial deployment with real shoppers requires infrastructure rate limiting, 
 
 Vercel uses Python Functions for the FastAPI backend and CDN-promoted assets for the frontend. The initial public deployment was **directly uploaded from the GitHub source** because Vercel's GitHub integration currently lacks permission to link this repository. New GitHub commits will **not** automatically redeploy until that integration is connected.
 
-Read [Deployment Guide](docs/DEPLOYMENT.md) for required setup and verification checks. The GitHub Actions workflow checks Python compilation and API tests; its current outcome is available from the CI badge above.
+Read [Deployment Guide](docs/DEPLOYMENT.md) for required setup and verification checks. GitHub Actions **Python API CI #1 passed** ([run details](https://github.com/hossain0707/universal-fasion-size/actions/runs/41772477606)). A public browser smoke test also completed successfully: Foundation Tee recommended M at **93.8/100** and Essential Denim recommended M at **95.4/100**, with 100% input coverage and no observed browser or API errors. These are demonstrations against fictional charts, not validated accuracy metrics.
 
 ## Roadmap
 

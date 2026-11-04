@@ -38,3 +38,7 @@ Vercel promotes public assets to CDN and may exclude their physical directories 
 ## Commercial release prerequisites
 
 Actual retailer charts, validated fit accuracy, rate limits, robust streaming payload limits, audit logs, accessibility review, a security audit, monitoring and a privacy/legal review. The current public version is a functional demonstration rather than a verified fit guarantee.
+
+## Observed verification — 2026-11-04
+
+GitHub Actions Python API CI run [#1](https://github.com/hossain0707/universal-fasion-size/actions/runs/41772477606) completed successfully, including Python syntax compilation and pytest. A public browser journey exercised the real POST /api/recommend endpoint twice: Foundation Tee returned recommended size M, score 93.8/100; Essential Denim returned size M, score 95.4/100; both showed 100% measurement coverage, explanations and alternatives. No JavaScript/API error was observed. These results demonstrate execution, not scientific fit accuracy.
