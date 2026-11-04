@@ -27,3 +27,9 @@ Enable Vercel GitHub integration, review CI results, validate POST and browser e
 
 ## 2026-11-04 verification update
 GitHub Actions run #1 completed successfully (https://github.com/hossain0707/universal-fasion-size/actions/runs/41772477606). Public browser form tests successfully obtained real API recommendations for Tops (Foundation Tee, M, 93.8/100) and Bottoms (Essential Denim, M, 95.4/100), with coverage, alternatives and explanations. No errors observed. This confirms core user interaction, not garment fit validation.
+
+## Phase 1.1 — Real photos and reusable local profile
+
+Editorial photographs replace the mannequin illustration. Users may choose two real photos for consent-gated, on-device MediaPipe pose and silhouette segmentation; the server receives only derived shape measurements and height. Python estimates chest/waist/hip circumferences with a heuristic ellipse model and clearly broad unvalidated ranges, never precise claims. Customer photos do not leave the browser to this API. Natural-language measured values require explicit labels and units. Customers can create and unlock AES-GCM encrypted browser-local profiles, with update, encrypted backup and deletion; these profiles do not automatically synchronize between devices and have no cloud account system. Cloud persistence requires dedicated auth/DB deployment and verification, never mixing with the existing PhishGuard Supabase resource.
+
+The public UI test passed real-photo rendering, measurements from text, fitting calculations, profile save/lock/unlock. GitHub CI #5 passed. The vision pipeline was not calibrated with real photos and tape ground truth. Merchant catalogs still use clearly fictional sample data unless an actual chart is supplied via the API.
