@@ -37,3 +37,19 @@ All dates use Asia/Seoul.
 ### Open
 - Authenticated cross-device profiles require a separate cloud database and identity provider.
 - Retailer size charts and photo-derived precision need evidence and independent validation.
+
+
+## 1.2.0 — 2026-11-04
+
+### Added
+- Three selectable example shopper journeys (tops, denim and dresses) with representative real-fashion photography and explicit fictional measurement datasets.
+- Four-step animated live website walkthrough: photo guidance, editable measurements, encrypted local-profile preview and a real POST request to the Python recommendation API.
+- Controls for step navigation, automatic playback, editing values, retrying API results and transferring the chosen example to the full fitting studio.
+- Actual on-device MediaPipe landmark and approximate torso-guide overlay on user-supplied image previews after a successful scan, distinct from the synthetic examples.
+- README photographic scenario gallery, animated demo workflow and dedicated demo engineering/QA guide.
+- Automated Python contract tests covering all three sample products and demo asset wiring.
+
+### Clarifications
+- Editorial example photos are not the source of the sample numbers.
+- The sample profile preview never persists data; only the separate encrypted profile vault can do that with customer consent.
+- Photo-derived real-world body measurement accuracy remains unvalidated.
