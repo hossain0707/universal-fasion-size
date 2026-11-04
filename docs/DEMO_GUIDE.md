@@ -71,3 +71,18 @@ No claim is made that this preliminary estimator reproduces tape-measured body s
 - To validate the photo model scientifically, compare real consented photo pairs with verified manual tape measurements across devices, poses, body types and clothing.
 
 The GitHub README itself is static; it displays an animated architecture/workflow diagram, sample fashion imagery and these example cases with a link to the live interactive site.
+
+
+## Verified public-browser demo run
+
+On November 4, 2026, a real browser visited the production website, exercised all three sample model selectors, navigated the animated four-step journey, changed inputs and requested live Python size recommendations.
+
+| Sample | Live recommended size | Live heuristic score |
+| --- | --- | ---: |
+| A · Foundation Tee | M | 93.8 / 100 |
+| B · Essential Denim | L | 95.3 / 100 |
+| C · Everyday Dress | S | Shown by the live API; exact value not recorded in the QA summary |
+
+The public session also verified representative fashion imagery loaded, the measurement fields were editable, the Play/Back/Next controls functioned, and no visible runtime errors were encountered. The tested photo examples were not processed by the pose model, and this test does not validate photo-derived anatomy measurements.
+
+[View the live browser QA evidence](https://agent.tinyfish.ai/runs/b96f3534-1ab2-4e35-baf4-286e76d42b8b).
