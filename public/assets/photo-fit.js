@@ -195,6 +195,68 @@
     $("#photo-explanation").textContent=result.advisory;
     $("#photo-output").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"nearest"});
   }
+
+  function showDetectedPose(canvas, detection, view, geometry) {
+    // This is a visualization of the ACTUAL on-device pose model's output.
+    // The overlaid lines are not centimeter-accurate measurement rulers.
+    const p=detection.landmarks?.[0];
+    if(!p||!geometry)return;
+    const width=canvas.width,height=canvas.height;
+    const output=document.createElement("canvas");
+    output.width=width;output.height=height;
+    const ctx=output.getContext("2d");
+    ctx.drawImage(canvas,0,0);
+    const links=[
+      [11,12],[11,13],[13,15],[12,14],[14,16],
+      [11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28]
+    ];
+    ctx.lineCap="round";
+    ctx.lineJoin="round";
+    ctx.lineWidth=Math.max(2,width*.006);
+    ctx.strokeStyle="rgba(70,255,180,.92)";
+    ctx.shadowColor="rgba(14,70,43,.75)";
+    ctx.shadowBlur=Math.max(3,width*.009);
+    for(const [a,b] of links){
+      if((p[a]?.visibility??0)<.5||(p[b]?.visibility??0)<.5)continue;
+      ctx.beginPath();
+      ctx.moveTo(p[a].x*width,p[a].y*height);
+      ctx.lineTo(p[b].x*width,p[b].y*height);
+      ctx.stroke();
+    }
+    ctx.shadowBlur=0;
+    for(const keypoint of [11,12,13,14,15,16,23,24,25,26,27,28]){
+      if((p[keypoint]?.visibility??0)<.5)continue;
+      ctx.fillStyle="#d1fff0";
+      ctx.beginPath();ctx.arc(p[keypoint].x*width,p[keypoint].y*height,Math.max(3,width*.007),0,Math.PI*2);ctx.fill();
+      ctx.fillStyle="#2a9b78";
+      ctx.beginPath();ctx.arc(p[keypoint].x*width,p[keypoint].y*height,Math.max(1.5,width*.003),0,Math.PI*2);ctx.fill();
+    }
+    const shoulderY=(p[11].y+p[12].y)*.5*height;
+    const hipY=(p[23].y+p[24].y)*.5*height;
+    const centerX=(p[11].x+p[12].x+p[23].x+p[24].x)*.25*width;
+    const bodyPoints=[
+      {metric:"chest",label:"CHEST",y:shoulderY+(hipY-shoulderY)*.25},
+      {metric:"waist",label:"WAIST",y:shoulderY+(hipY-shoulderY)*.67},
+      {metric:"hip",label:"HIPS",y:hipY}
+    ];
+    ctx.setLineDash([Math.max(5,width*.01),Math.max(3,width*.007)]);
+    ctx.lineWidth=Math.max(2,width*.0035);
+    for(const point of bodyPoints) {
+      const halfWidth=geometry.widths_px[point.metric]*.5;
+      const left=Math.max(0,centerX-halfWidth);
+      const right=Math.min(width,centerX+halfWidth);
+      ctx.strokeStyle="rgba(255,224,129,.95)";
+      ctx.beginPath();ctx.moveTo(left,point.y);ctx.lineTo(right,point.y);ctx.stroke();
+      ctx.fillStyle="rgba(14,39,37,.92)";
+      ctx.font="bold "+Math.max(12,Math.round(width*.023))+"px Arial,sans-serif";
+      ctx.fillText(point.label,Math.max(4,left+6),point.y-9);
+    }
+    ctx.setLineDash([]);
+    const target=document.getElementById(view+"-preview");
+    target.src=output.toDataURL("image/jpeg",.86);
+    document.getElementById(view+"-file-name").textContent=
+      "Actual pose landmarks visualized locally · "+(selected[view].size/1048576).toFixed(1)+" MB";
+  }
   $("#analyze-photos").addEventListener("click", async event => {
     const button=event.currentTarget;
     lastAssessment=null;
@@ -216,8 +278,10 @@
       const frontImg=await loadPhoto(selected.front);
       const sideImg=await loadPhoto(selected.side);
       announce("Detecting body silhouettes locally. Photographs do not leave this browser.");
-      const front=silhouetteFromDetection(pose.detect(frontImg),frontImg,"front");
-      const side=silhouetteFromDetection(pose.detect(sideImg),sideImg,"side");
+      const frontDetection=pose.detect(frontImg);
+      const front=silhouetteFromDetection(frontDetection,frontImg,"front");
+      const sideDetection=pose.detect(sideImg);
+      const side=silhouetteFromDetection(sideDetection,sideImg,"side");
       announce("Estimating rough circumference ranges with the Python API. Only derived geometry is sent.");
       const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),18000);
       let response;
@@ -235,6 +299,10 @@
         throw new Error(detail);
       }
       lastAssessment=payload;
+      // Render the pose model's ACTUAL detected landmarks on each LOCAL preview
+      // only after both views and the geometry API have passed validation.
+      showDetectedPose(frontImg,frontDetection,"front",front);
+      showDetectedPose(sideImg,sideDetection,"side",side);
       renderEstimate(payload);
       announce("Rough photo estimates calculated. Review them; they are not verified measurements.");
     }catch(error){
