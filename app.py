@@ -180,7 +180,7 @@ def rank_sizes(measurements: Measurements, category: Category, fit: Fit,
     coverage = round(100 * covered_weight / sum(weights.values()))
     confidence = "high" if coverage >= 90 else "moderate" if coverage >= 60 else "limited"
     explanation = [
-        f"{METRIC_LABELS[item['measurement'].split('_')[0] + '_cm'] if False else METRIC_LABELS[item['measurement']].capitalize()}: "
+        f"{METRIC_LABELS[item['measurement']].capitalize()}: "
         f"{item['body_cm']:g} cm; this chart's {best['size']} body range is "
         f"{item['size_min_cm']:g}–{item['size_max_cm']:g} cm ({item['assessment']})."
         for item in best["details"]
@@ -288,4 +288,7 @@ def homepage():
                         headers={"Cache-Control": "public, max-age=300"})
 
 
-app.mount("/assets", StaticFiles(directory=ROOT / "public" / "assets"), name="assets")
+# Vercel promotes public/assets to CDN and excludes that folder from the Python bundle.
+# Mount only when the physical directory exists (local development / Docker).
+if (ROOT / "public" / "assets").is_dir():
+    app.mount("/assets", StaticFiles(directory=ROOT / "public" / "assets"), name="assets")
