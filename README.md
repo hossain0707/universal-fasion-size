@@ -220,14 +220,14 @@ The API is interactive at **[the public Swagger UI](https://universal-fasion-siz
 
 | Method | Path | Purpose |
 | --- | --- | --- |
-| GET | \`/api/health\` | Health check |
-| GET | \`/api/catalog\` | Six fictional example garments and size charts |
-| GET | \`/api/catalog/{product_id}\` | Individual garment details |
-| POST | \`/api/recommend\` | Ranked fitting recommendation with explanations |
-| POST | \`/api/photo/assess\` | Estimate approximate circumferences from derived *front/side silhouette geometry*, not uploaded images |
-| GET | \`/api/methodology\` | Method summary and limitations |
-| GET | \`/api/docs\` | Interactive Swagger UI |
-| GET | \`/api/openapi.json\` | OpenAPI schema |
+| GET | `/api/health` | Health check |
+| GET | `/api/catalog` | Six fictional example garments and size charts |
+| GET | `/api/catalog/{product_id}` | Individual garment details |
+| POST | `/api/recommend` | Ranked fitting recommendation with explanations |
+| POST | `/api/photo/assess` | Estimate approximate circumferences from derived *front/side silhouette geometry*, not uploaded images |
+| GET | `/api/methodology` | Method summary and limitations |
+| GET | `/api/docs` | Interactive Swagger UI |
+| GET | `/api/openapi.json` | OpenAPI schema |
 
 ### Calculate a size
 
@@ -272,11 +272,11 @@ The fictional Foundation Tee example has returned **M**, a heuristic score of **
 }
 ~~~
 
-Submit that JSON to **POST \`/api/recommend\`**. Chart measurements represent *body-size ranges in centimetres*, not physical garment dimensions. The custom chart is used for the request, not permanently stored.
+Submit that JSON to **POST `/api/recommend`**. Chart measurements represent *body-size ranges in centimetres*, not physical garment dimensions. The custom chart is used for the request, not permanently stored.
 
 ### Photo geometry endpoint
 
-**POST \`/api/photo/assess\`** accepts bounded numeric data (two silhouette heights in pixels, front and side chest/waist/hip widths, pose quality, and measured stature). It explicitly **does not accept image uploads**. The endpoint returns rough circumference estimates, a cautionary range, quality status and limitations, or an HTTP 422 validation response.
+**POST `/api/photo/assess`** accepts bounded numeric data (two silhouette heights in pixels, front and side chest/waist/hip widths, pose quality, and measured stature). It explicitly **does not accept image uploads**. The endpoint returns rough circumference estimates, a cautionary range, quality status and limitations, or an HTTP 422 validation response.
 
 For the exact request schema, validation and methodological details, consult the **[OpenAPI docs](https://universal-fasion-size.vercel.app/api/docs)** and **[engineering notes](docs/PHOTO_MEASUREMENT.md)**.
 
